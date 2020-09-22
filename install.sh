@@ -8,13 +8,13 @@ DIRECTORY=$(cd $(dirname $0) && pwd)
 if ! [ -d $SCRIPTS ]; then
 mkdir $SCRIPTS
 fi
-CONFIG=$(find $DIRECTORY -name '*.ovpn' | grep 'pik' | awk -F '/' '{print $NF;}')
+CONFIG=$(find "$DIRECTORY" -name '*.ovpn' | grep 'pik' | awk -F '/' '{print $NF;}')
 if [[ -z $CONFIG ]]
 then
    echo "No pik*.ovpn file found!!!"
    exit 1
 fi
-cp $(realpath $(find $DIRECTORY -name '*.ovpn')) $SCRIPTS
+cp "$DIRECTORY"/$CONFIG $SCRIPTS
 
 
 cat_str='$(cat /etc/resolv.conf)'
