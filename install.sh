@@ -15,15 +15,20 @@ then
    exit 1
 fi
 cp $(realpath $(find $DIRECTORY -name '*.ovpn')) $SCRIPTS
+
+
+cat_str='$(cat /etc/resolv.conf)'
 cat <<EOF > $SCRIPTS/start.sh
 #!/bin/bash
-/bin/cp /etc/resolv.conf /tmp/resolv.conf
-echo 'nameserver 192.168.128.1' > /etc/resolv.conf
+echo -e "nameserver 192.168.128.1\n"$cat_str > /etc/resolv.conf
 EOF
 
+
+
+cat_str='$(cat /etc/resolv.conf | grep -v '192.168.128.1')'
 cat <<EOF > $SCRIPTS/stop.sh
 #!/bin/bash
-cp /tmp/resolv.conf /etc/resolv.conf
+echo $cat_str > /etc/resolv.conf
 EOF
 
 cat <<EOF > $SCRIPTS/connect.sh
