@@ -28,7 +28,7 @@ EOF
 cat_str='$(cat /etc/resolv.conf | grep -v '192.168.128.1')'
 cat <<EOF > $SCRIPTS/stop.sh
 #!/bin/bash
-echo $cat_str > /etc/resolv.conf
+sed -i '/nameserver 192.168.128.1/d' /etc/resolv.conf
 EOF
 
 cat <<EOF > $SCRIPTS/connect.sh
