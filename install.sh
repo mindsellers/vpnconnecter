@@ -20,7 +20,7 @@ cp "$DIRECTORY"/$CONFIG $SCRIPTS
 cat_str='$(cat /etc/resolv.conf)'
 cat <<EOF > $SCRIPTS/start.sh
 #!/bin/bash
-echo -e "nameserver 192.168.128.1\n"$cat_str > /etc/resolv.conf
+sed -i '1i nameserver 192.168.128.1\n' /etc/resolv.conf
 EOF
 
 
