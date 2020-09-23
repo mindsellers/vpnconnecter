@@ -20,7 +20,11 @@ cp "$DIRECTORY"/$CONFIG $SCRIPTS
 cat_str='$(cat /etc/resolv.conf)'
 cat <<EOF > $SCRIPTS/start.sh
 #!/bin/bash
+if grep "nameserver 192.168.128.1" /etc/resolv.conf; then
+echo "DNS already exists"
+else
 sed -i '1i nameserver 192.168.128.1' /etc/resolv.conf
+fi
 EOF
 
 
